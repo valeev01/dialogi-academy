@@ -1,0 +1,889 @@
+
+<title>Академия ИИ Диалоги</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #f6f5fb;
+    --surface: #ffffff;
+    --surface-2: #efeef9;
+    --surface-3: #e6e4f5;
+    --border: #e3e1f0;
+    --text: #1a1826;
+    --text-muted: #635f78;
+    --text-faint: #918da5;
+    --accent: #4f46e5;
+    --accent-strong: #3730a3;
+    --accent-soft: #ecebfc;
+    --accent-contrast: #ffffff;
+    --success: #1e9e62;
+    --success-soft: #e3f6ec;
+    --warn: #b45309;
+    --warn-soft: #fdf1df;
+    --shadow: 0 1px 2px rgba(26,24,38,0.04), 0 8px 24px -12px rgba(26,24,38,0.14);
+    --shadow-lg: 0 4px 8px rgba(26,24,38,0.04), 0 24px 48px -16px rgba(26,24,38,0.22);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131019;
+      --surface: #1c1826;
+      --surface-2: #221e30;
+      --surface-3: #2b2538;
+      --border: #322c42;
+      --text: #edebf7;
+      --text-muted: #a49fbb;
+      --text-faint: #6f6a86;
+      --accent: #a89dff;
+      --accent-strong: #c3baff;
+      --accent-soft: #2a2540;
+      --accent-contrast: #171226;
+      --success: #4ade80;
+      --success-soft: #16321f;
+      --warn: #fbbf24;
+      --warn-soft: #3a2e14;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+      --shadow-lg: 0 4px 8px rgba(0,0,0,0.3), 0 24px 48px -16px rgba(0,0,0,0.6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #131019;
+    --surface: #1c1826;
+    --surface-2: #221e30;
+    --surface-3: #2b2538;
+    --border: #322c42;
+    --text: #edebf7;
+    --text-muted: #a49fbb;
+    --text-faint: #6f6a86;
+    --accent: #a89dff;
+    --accent-strong: #c3baff;
+    --accent-soft: #2a2540;
+    --accent-contrast: #171226;
+    --success: #4ade80;
+    --success-soft: #16321f;
+    --warn: #fbbf24;
+    --warn-soft: #3a2e14;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    --shadow-lg: 0 4px 8px rgba(0,0,0,0.3), 0 24px 48px -16px rgba(0,0,0,0.6);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Golos Text', -apple-system, 'Segoe UI', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent-strong); }
+
+  h1, h2, h3 { font-family: 'Unbounded', 'Golos Text', sans-serif; text-wrap: balance; margin: 0; }
+  .subtopic-title { font-size: 17px; font-weight: 700; margin: 28px 0 2px; }
+
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  /* ---------- Header ---------- */
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .top-inner {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+  }
+  .brand-mark {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(155deg, var(--accent), var(--accent-strong));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent-contrast);
+    font-size: 15px;
+    flex: none;
+    box-shadow: var(--shadow);
+  }
+  nav.pills {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav.pills::-webkit-scrollbar { display: none; }
+  nav.pills a {
+    flex: none;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  nav.pills a:hover { background: var(--surface-2); color: var(--text); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 56px 24px 8px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4.4vw, 40px);
+    font-weight: 800;
+    line-height: 1.14;
+    max-width: 14ch;
+  }
+  .hero p.lede {
+    margin-top: 16px;
+    font-size: 16.5px;
+    color: var(--text-muted);
+    max-width: 56ch;
+  }
+
+  /* Progress overview */
+  .progress-strip {
+    max-width: 920px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+  }
+  .progress-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 700px) {
+    .progress-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .progress-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 14px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s ease;
+  }
+  .progress-card:hover { transform: translateY(-2px); }
+  .progress-card .num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .progress-card .label {
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    width: fit-content;
+  }
+  .status-chip.done { background: var(--success-soft); color: var(--success); }
+  .status-chip.pending { background: var(--warn-soft); color: var(--warn); }
+  .status-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ---------- Sections ---------- */
+  main {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  section.module {
+    scroll-margin-top: 84px;
+  }
+
+  .module-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  .module-index {
+    flex: none;
+    width: 42px; height: 42px;
+    border-radius: 11px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .module-titlewrap { flex: 1; }
+  .module-titlewrap h2 {
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .avito-badge {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+  .cap-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .module-titlewrap .sub {
+    margin-top: 4px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+  }
+
+  .video-block {
+    background: var(--surface-3);
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 6px;
+  }
+  .video-block video {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    background: #000;
+  }
+  .video-caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 6px 2px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+  .video-caption .dur {
+    color: var(--text-faint);
+  }
+  .video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 700px) {
+    .video-grid { grid-template-columns: 1fr; }
+  }
+
+  details.steps {
+    margin-top: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  details.steps summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--text);
+  }
+  details.steps summary::-webkit-details-marker { display: none; }
+  details.steps summary .chev {
+    color: var(--text-faint);
+    transition: transform 0.2s ease;
+    flex: none;
+  }
+  details.steps[open] summary .chev { transform: rotate(90deg); }
+  details.steps summary:hover { background: var(--surface-2); }
+  .steps-body {
+    padding: 4px 18px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .steps-body ol {
+    margin: 14px 0 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .steps-body li {
+    font-size: 14.5px;
+    color: var(--text);
+    padding-left: 2px;
+  }
+  .steps-body li::marker {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-strong);
+    font-weight: 600;
+  }
+  .topic-list {
+    margin: 14px 0 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .topic-list li {
+    font-size: 14.5px;
+    color: var(--text);
+  }
+  .topic-list li::marker { color: var(--accent-strong); }
+  .bot-columns {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .bot-columns > div { flex: 1; min-width: 220px; }
+  .bot-columns h4 {
+    font-family: 'Unbounded', 'Golos Text', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent-strong);
+    margin: 0 0 8px;
+  }
+  .bot-columns ul {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .bot-columns li {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .shot {
+    margin-top: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .shot img { width: 100%; display: block; }
+  .shot-cap {
+    font-size: 12px;
+    color: var(--text-faint);
+    text-align: center;
+    padding: 8px 6px 0;
+    font-style: italic;
+  }
+
+  .pending-card {
+    background: var(--warn-soft);
+    border: 1px dashed color-mix(in srgb, var(--warn) 45%, transparent);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pending-card .status-chip.pending { background: color-mix(in srgb, var(--warn) 18%, var(--warn-soft)); }
+  .pending-card p { margin: 0; font-size: 14.5px; color: var(--text); }
+  .pending-card p.small { font-size: 13px; color: var(--text-muted); }
+  .info-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .info-card p { margin: 0; font-size: 14.5px; color: var(--text); line-height: 1.5; }
+  .mail-template {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+  .manager-note {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .manager-note .tag {
+    display: inline-flex;
+    align-self: flex-start;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--accent-strong);
+    background: var(--surface);
+    border-radius: 6px;
+    padding: 3px 8px;
+  }
+  .manager-note p { margin: 0; font-size: 14.5px; color: var(--text); line-height: 1.5; }
+
+  footer.page-foot {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+    color: var(--text-faint);
+    font-size: 12.5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  body:not(.unlocked) header.top,
+  body:not(.unlocked) .hero,
+  body:not(.unlocked) .progress-strip,
+  body:not(.unlocked) main,
+  body:not(.unlocked) footer.page-foot {
+    display: none;
+  }
+  #gate {
+    display: none;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  body:not(.unlocked) #gate { display: flex; }
+  body.unlocked #gate { display: none; }
+  #gate .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-lg);
+    max-width: 340px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+  }
+  #gate h2 { font-size: 19px; }
+  #gate p { margin: 0; font-size: 13.5px; color: var(--text-muted); }
+  #gate input {
+    font-size: 15px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    outline: none;
+    text-align: center;
+  }
+  #gate input:focus { border-color: var(--accent); }
+  #gate button {
+    font-size: 14.5px;
+    font-weight: 600;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: none;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    cursor: pointer;
+  }
+  #gate button:hover { background: var(--accent-strong); }
+  #gate .err { color: #dc2626; font-size: 13px; min-height: 16px; }
+</style>
+
+<div id="gate">
+  <form class="card" onsubmit="return checkGatePassword(event)">
+    <span class="brand-mark" style="align-self:center;">🎓</span>
+    <h2>Академия ИИ Диалоги</h2>
+    <p>Внутренняя методичка. Введите пароль, чтобы продолжить.</p>
+    <input id="gate-password" type="password" placeholder="Пароль" autocomplete="off">
+    <div class="err" id="gate-error"></div>
+    <button type="submit">Войти</button>
+  </form>
+</div>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand"><span class="brand-mark">🎓</span> Академия ИИ Диалоги</div>
+    <nav class="pills">
+      <a href="#s1">1. Создание клиента (Профайла)</a>
+      <a href="#s2">2. Создание кабинетов внутри профайла</a>
+      <a href="#s3">3. Настройка кабинетов</a>
+      <a href="#s4">4. Пополнение баланса</a>
+      <a href="#s5">5. Запуск в работу</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <span class="eyebrow">Методичка для менеджера · CRM «ИИ Диалоги»</span>
+  <h1>Как вести клиента от создания до запуска</h1>
+  <p class="lede">Пошаговые видео и текстовые инструкции по работе в CRM.</p>
+</div>
+
+<div class="progress-strip">
+  <div class="progress-grid">
+    <a class="progress-card" href="#s1">
+      <span class="num">01</span>
+      <span class="label">Создание клиента (Профайла)</span>
+      <span class="status-chip done"><span class="dot"></span>Готово</span>
+    </a>
+    <a class="progress-card" href="#s2">
+      <span class="num">02</span>
+      <span class="label">Создание кабинетов внутри профайла</span>
+      <span class="status-chip done"><span class="dot"></span>Готово</span>
+    </a>
+    <a class="progress-card" href="#s3">
+      <span class="num">03</span>
+      <span class="label">Настройка кабинетов</span>
+      <span class="status-chip done"><span class="dot"></span>Готово</span>
+    </a>
+    <a class="progress-card" href="#s4">
+      <span class="num">04</span>
+      <span class="label">Пополнение баланса</span>
+      <span class="status-chip done"><span class="dot"></span>Готово</span>
+    </a>
+    <a class="progress-card" href="#s5">
+      <span class="num">05</span>
+      <span class="label">Запуск клиента в работу</span>
+      <span class="status-chip done"><span class="dot"></span>Готово</span>
+    </a>
+  </div>
+</div>
+
+<main>
+
+  <section class="module" id="s1">
+    <div class="module-head">
+      <div class="module-index">01</div>
+      <div class="module-titlewrap">
+        <h2>Создание клиента (Профайла)</h2>
+        <div class="sub">Как создать нового клиента в CRM</div>
+      </div>
+    </div>
+
+    <div class="video-block">
+      <video controls preload="metadata">
+        <source src="assets/01-sozdanie-klienta.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-caption"><span>Как создавать клиента в срм диалоги</span></div>
+  </section>
+
+  <section class="module" id="s2">
+    <div class="module-head">
+      <div class="module-index">02</div>
+      <div class="module-titlewrap">
+        <h2>Создание кабинетов внутри профайла</h2>
+        <div class="sub cap-title"><span class="avito-badge"><svg width="18" height="18" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Авито"><circle cx="12" cy="12" r="9" fill="#00AAF2"/><circle cx="27" cy="10.5" r="7" fill="#F2637A"/><circle cx="10" cy="27.5" r="5.5" fill="#965EEB"/><circle cx="25.5" cy="26" r="9.5" fill="#8DC63F"/></svg></span>Создание авито кабинета внутри профайла</div>
+      </div>
+    </div>
+
+    <div class="video-block">
+      <video controls preload="metadata">
+        <source src="assets/02-avito-kabinet.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="sub cap-title" style="margin-top:14px"><span class="avito-badge"><svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Авто.ру"><rect width="40" height="40" rx="9" fill="#E23325"/><path d="M11 22.5c0-1.2.9-2.1 2-2.6l1.6-3.4c.4-.9 1.3-1.5 2.3-1.5h6.2c1 0 1.9.6 2.3 1.5l1.6 3.4c1.1.5 2 1.4 2 2.6v3.3c0 .6-.5 1.1-1.1 1.1H24c-.4 0-.7-.3-.7-.7v-.7h-6.6v.7c0 .4-.3.7-.7.7h-3.9c-.6 0-1.1-.5-1.1-1.1v-3.3z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><circle cx="15.5" cy="25.8" r="1.6" fill="white"/><circle cx="24.5" cy="25.8" r="1.6" fill="white"/></svg></span>Авто.ру создаётся аналогично как и Авито, только надо поставить тип профиля (Авто.ру)</div>
+    <div class="shot" style="margin-top:10px"><img src="assets/02-avto-ru-screenshot.jpg"></div>
+    <div class="sub cap-title" style="margin-top:14px"><span class="avito-badge"><svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Drom"><circle cx="20" cy="20" r="20" fill="#C81E1E"/><path d="M11 22.5c0-1.2.9-2.1 2-2.6l1.6-3.4c.4-.9 1.3-1.5 2.3-1.5h6.2c1 0 1.9.6 2.3 1.5l1.6 3.4c1.1.5 2 1.4 2 2.6v3.3c0 .6-.5 1.1-1.1 1.1H24c-.4 0-.7-.3-.7-.7v-.7h-6.6v.7c0 .4-.3.7-.7.7h-3.9c-.6 0-1.1-.5-1.1-1.1v-3.3z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><circle cx="15.5" cy="25.8" r="1.6" fill="white"/><circle cx="24.5" cy="25.8" r="1.6" fill="white"/></svg></span>Дром создаётся аналогично, нужны app_id и token, ниже будет информация как это всё получить</div>
+    <div class="shot" style="margin-top:10px"><img src="assets/02-drom-novyy-akkaunt.jpg"></div>
+    <div class="info-card">
+      <p><strong>Отправляем данный текст в чат дилеру:</strong></p>
+      <p>Чтобы нам интегрироваться к Вам в дром, то нужно написать на почту <strong>am@drom.ru</strong> с запросом на подключение агрегатора чатов «Диалоги ИИ» и указать, что нужна отправка вин-номера.</p>
+      <p>Либо обратиться к своему аккаунт-менеджеру, он тоже может справиться с этой задачей.</p>
+      <p>Текст такой:</p>
+      <div class="mail-template">Необходимо подключить агрегатор чатов Диалоги ИИ с отправкой вин-номера.
+Пришлите, пожалуйста, app id и токен.
+Дополнительно:
+1. Если мы работаем через мультикарту, то нужен app id и токен от нее
+2. Если у нас есть какие-то другие интеграции с чатами - их необходимо отключить</div>
+    </div>
+    <div class="manager-note">
+      <span class="tag">Для менеджера</span>
+      <p>После того как клиент Вам всё отправил, то необходимо app id и токен вставить, и у Вас будет отображаться вот так кабинет, что дром «Ждём активации».</p>
+      <div class="shot" style="margin-top:4px"><img src="assets/02-drom-zhdet-aktivacii.jpg"></div>
+      <p>Через 5–10 минут должно быть написано, что «Дром активирован».</p>
+      <div class="shot" style="margin-top:4px"><img src="assets/02-drom-aktivirovan.jpg"></div>
+    </div>
+  </section>
+
+  <section class="module" id="s3">
+    <div class="module-head">
+      <div class="module-index">03</div>
+      <div class="module-titlewrap">
+        <h2>Настройка кабинетов</h2>
+      </div>
+    </div>
+
+    <ul class="topic-list">
+      <li>Заполнение брифа (выбор подсферы)</li>
+      <li>Интеграция с кабинетами (Авито, Авто.ру и Дром)</li>
+      <li>Интеграция с телеграм и MAX</li>
+    </ul>
+
+    <div class="sub cap-title" style="margin-top:14px"><span class="avito-badge"><svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Авито"><circle cx="12" cy="12" r="9" fill="#00AAF2"/><circle cx="27" cy="10.5" r="7" fill="#F2637A"/><circle cx="10" cy="27.5" r="5.5" fill="#965EEB"/><circle cx="25.5" cy="26" r="9.5" fill="#8DC63F"/></svg></span>АВИТО</div>
+
+    <div class="video-block" style="margin-top:10px">
+      <video controls preload="metadata">
+        <source src="assets/03-nastroyka-kabinetov.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="manager-note" style="background:var(--success-soft); border-left-color:var(--success);">
+      <span class="tag" style="color:var(--success);">Скопировать и отправить клиенту</span>
+      <div class="mail-template">Для подключения ИИ к Авито надо сделать следующее:
+
+1) Заполнить бриф
+Ссылка на бриф:
+
+2) Сделать подключение к Авито.
+Для этого надо открыть индивидуальную ссылку именно в том браузере, где у вас зарегистрирован нужный Авито аккаунт (в котором будем подключать ИИ), и нажать «Разрешить».
+❗️Перед тем как дать разрешение, сначала авторизуйтесь у себя в Авито кабинете (конкретно в выделенном названии), далее как авторизуетесь, переходите по нашей ссылке и нажмите кнопку «Разрешить».
+
+Ссылка: </div>
+    </div>
+
+    <h3 class="subtopic-title">Обязательно: добавить ботов в чаты, куда будут приходить успешки, и выдать им доступ админа</h3>
+
+    <div class="bot-columns">
+      <div>
+        <h4>Если Телеграм — добавить в чат:</h4>
+        <ul>
+          <li>@avito_loggers_bot</li>
+          <li>@Dialogi_QA_bot</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Если Мах — добавить в чат:</h4>
+        <ul>
+          <li>@id9703247791_bot</li>
+          <li>@id9703247791_1_bot</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shot" style="margin-top:14px"><img src="assets/03-boty-telegram.jpg"></div>
+    <div class="shot" style="margin-top:10px"><img src="assets/03-boty-max.jpg"></div>
+
+    <h3 class="subtopic-title">Доп. инфа: как найти айди беседы в телеграм (куда должны приходить успешки)</h3>
+
+    <div class="video-block">
+      <video controls preload="metadata">
+        <source src="assets/03-avito-telegram-id-besedy.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="sub cap-title" style="margin-top:28px"><span class="avito-badge"><svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Авто.ру"><rect width="40" height="40" rx="9" fill="#E23325"/><path d="M11 22.5c0-1.2.9-2.1 2-2.6l1.6-3.4c.4-.9 1.3-1.5 2.3-1.5h6.2c1 0 1.9.6 2.3 1.5l1.6 3.4c1.1.5 2 1.4 2 2.6v3.3c0 .6-.5 1.1-1.1 1.1H24c-.4 0-.7-.3-.7-.7v-.7h-6.6v.7c0 .4-.3.7-.7.7h-3.9c-.6 0-1.1-.5-1.1-1.1v-3.3z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><circle cx="15.5" cy="25.8" r="1.6" fill="white"/><circle cx="24.5" cy="25.8" r="1.6" fill="white"/></svg></span>АВТО.РУ</div>
+
+    <div class="info-card">
+      <p><strong>1) Запрашиваем у клиента доступы в кабинет</strong></p>
+      <div class="mail-template">Пришлите, пожалуйста, доступы от кабинета в Авто.ру (логин (почта) и пароль)</div>
+
+      <p><strong>2) Заходим в кабинет Авто.ру, раздел «Чаты → Чат с поддержкой» и запрашиваем токен</strong></p>
+      <div class="mail-template">Добрый день! Дайте, пожалуйста, авторизованный токен для работы с чатами от этого кабинета.
+Обычно такие дают для интеграции с Бачатой</div>
+      <div class="shot" style="margin-top:10px"><img src="assets/03-autoru-zapros-tokena.jpg"></div>
+
+      <p><strong>Несколько кабинетов и токенов:</strong></p>
+      <p>Если у клиента несколько кабинетов, то сначала надо залогиниться во всех кабинетах и скопировать ID, а затем запросить в одном из кабинетов сразу все токены.</p>
+      <div class="shot" style="margin-top:10px"><img src="assets/03-autoru-neskolko-kabinetov.jpg"></div>
+      <p>⚠️ Иногда токен бывает единый для всех кабинетов.</p>
+    </div>
+
+    <div class="info-card">
+      <p><strong>Как подключить кабинет Авто.ру к нашей CRM:</strong></p>
+
+      <p>1) Создать аккаунт Авто.ру в нашей CRM</p>
+      <div class="shot" style="margin-top:4px"><img src="assets/03-autoru-shag1-sozdat-akkaunt.jpg"></div>
+
+      <p>2) Перейти в раздел «Настройки → Авто.ру». Там нужно скопировать Chat ID и Webhook URL</p>
+      <div class="shot" style="margin-top:4px"><img src="assets/03-autoru-shag2-chatid-webhook.jpg"></div>
+
+      <p>3) Эти ID и Webhook нужно вставить в кабинет Авто.ру: переходим в раздел «Настройки → Чаты», добавляем канал «ДИАЛОГИ» и вставляем данные, жмём «Сохранить»</p>
+      <div class="shot" style="margin-top:4px"><img src="assets/03-autoru-shag3-kanal-dialogi.jpg"></div>
+
+      <p>4) После того как вы получите от поддержки токен, снова идём в нашу CRM «Настройки → Авто.ру» и в блок «Реквизиты» вставляем логин, пароль и токен от кабинета Авто.ру</p>
+      <div class="shot" style="margin-top:4px"><img src="assets/03-autoru-shag4-rekvizity.jpg"></div>
+
+      <div class="shot" style="margin-top:10px"><img src="assets/03-autoru-podklyuchen.jpg"></div>
+      <p>Далее, если у Вас Авто.ру «Подключен», то необходимо сделать следующее:</p>
+      <p><em>(Это всё есть в видео в 3 разделе «Настройка кабинетов → Авито»)</em></p>
+      <ul class="topic-list">
+        <li>Поставить подсферу</li>
+        <li>Клиенту направить бриф, чтобы он его заполнил</li>
+        <li>Сделать интеграцию с мессенджером (MAX или Telegram)</li>
+      </ul>
+    </div>
+
+    <div class="sub cap-title" style="margin-top:28px"><span class="avito-badge"><svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Drom"><circle cx="20" cy="20" r="20" fill="#C81E1E"/><path d="M11 22.5c0-1.2.9-2.1 2-2.6l1.6-3.4c.4-.9 1.3-1.5 2.3-1.5h6.2c1 0 1.9.6 2.3 1.5l1.6 3.4c1.1.5 2 1.4 2 2.6v3.3c0 .6-.5 1.1-1.1 1.1H24c-.4 0-.7-.3-.7-.7v-.7h-6.6v.7c0 .4-.3.7-.7.7h-3.9c-.6 0-1.1-.5-1.1-1.1v-3.3z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><circle cx="15.5" cy="25.8" r="1.6" fill="white"/><circle cx="24.5" cy="25.8" r="1.6" fill="white"/></svg></span>Дром</div>
+
+    <div class="info-card">
+      <p>Если у Вас Дром активирован, то Вам осталось только:</p>
+      <p><em>(Это всё есть в видео в 3 разделе «Настройка кабинетов → Авито»)</em></p>
+      <ul class="topic-list">
+        <li>Поставить подсферу</li>
+        <li>Клиенту направить бриф, чтобы он его заполнил</li>
+        <li>Сделать интеграцию с мессенджером (MAX или Telegram)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="module" id="s4">
+    <div class="module-head">
+      <div class="module-index">04</div>
+      <div class="module-titlewrap">
+        <h2>Пополнение баланса</h2>
+      </div>
+    </div>
+
+    <h3 class="subtopic-title">Пополнение при обычных тарифах</h3>
+    <div class="sub">Как пополнить баланс клиента на стандартном (не безлимитном) тарифе</div>
+
+<div class="video-block">
+      <video controls preload="metadata">
+        <source src="assets/04-popolnenie-obychnyy.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-caption"><span>Видео · пополнение на обычном тарифе</span><span class="dur mono">0:49</span></div>
+  
+    <h3 class="subtopic-title">Пополнение при безлимитных тарифах</h3>
+    <div class="sub">Как пополнить баланс клиента на безлимитном тарифе с фиксированной оплатой</div>
+
+<div class="video-block">
+      <video controls preload="metadata">
+        <source src="assets/05-popolnenie-bezlimit.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-caption"><span>Видео · пополнение на безлимитном тарифе</span><span class="dur mono">0:48</span></div>
+
+    <h3 class="subtopic-title">Пополнение при индивидуальной стоимости</h3>
+
+    <div class="video-block">
+      <video controls preload="metadata">
+        <source src="assets/04-popolnenie-individualnaya.mp4" type="video/mp4">
+      </video>
+    </div>
+    </section>
+
+  <section class="module" id="s5">
+    <div class="module-head">
+      <div class="module-index">05</div>
+      <div class="module-titlewrap">
+        <h2>Запуск клиента в работу</h2>
+      </div>
+    </div>
+
+    <div class="video-block">
+      <video controls preload="metadata">
+        <source src="assets/05-zapusk-klienta.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <p style="margin-top:16px; font-size:14.5px; color:var(--text);">Когда клиент запущен, то нужно направить ему этот текст в чат, куда будут приходить успешки:</p>
+
+    <div class="manager-note" style="background:var(--success-soft); border-left-color:var(--success);">
+      <span class="tag" style="color:var(--success);">Скопировать и отправить клиенту</span>
+      <div class="mail-template">ИИ-ассистент запущен!
+
+Изменения по работе с чатами:
+1. Менеджерам отвечать на сообщения в Авито НЕ нужно! ИИ будет отвечать на все сообщения по объявлениям с Авито на основе фида.
+2. После получения контакта в данный чат будут приходить сообщения с кратким ходом диалога, ссылкой на диалог и контактом клиента.
+3. Дальше с вашей стороны распределение на менеджеров полученных лидов из этого чата.
+4. Чтобы понимать, что контакт взят в работу, нужно проставлять эмоджи под сообщением.
+5. Чаты, где клиент отказывается давать контакт и просит прислать фото или автотеку, также будут приходить в этот чат. На них можно будет дать ответ не переходя в Авито из данного чата.
+
+От оперативности ответов клиентам, где получен контакт, будет зависеть результат по продажам.
+
+ВАЖНО: все сторонние автоответы в подключенных к ИИ аккаунтах должны быть отключены</div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="page-foot">
+  <span>Академия ИИ Диалоги · внутренняя методичка</span>
+  <span class="mono">обновлено 24.08.2026</span>
+</footer>
+
+<script>
+  var GATE_PASSWORD = "dialogi2026";
+
+  function checkGatePassword(e) {
+    e.preventDefault();
+    var input = document.getElementById('gate-password');
+    var err = document.getElementById('gate-error');
+    if (input.value === GATE_PASSWORD) {
+      localStorage.setItem('dialogiUnlocked', '1');
+      document.body.classList.add('unlocked');
+      err.textContent = '';
+    } else {
+      err.textContent = 'Неверный пароль';
+      input.value = '';
+      input.focus();
+    }
+    return false;
+  }
+
+  (function () {
+    try {
+      if (localStorage.getItem('dialogiUnlocked') === '1') {
+        document.body.classList.add('unlocked');
+      }
+    } catch (e) {}
+  })();
+</script>
